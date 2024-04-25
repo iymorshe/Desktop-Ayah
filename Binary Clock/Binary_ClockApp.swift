@@ -11,12 +11,14 @@ import SwiftUI
 struct Binary_ClockApp: App {
 
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-
     var body: some Scene {
         MenuBarExtra("Binary Clock", systemImage: "clock.circle.fill") {
             Text("Binary Clock")
             Button("Toggle Visibility") {
                 NotificationCenter.default.post(name: Notification.Name.toggleVisibility, object: nil)
+            }
+            Button("New"){
+                
             }
             Button("Quit") {
                 NSApplication.shared.terminate(nil)
@@ -39,10 +41,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func showWindow() {
         // Get screen dimensions
-        guard let screens = try? NSScreen.screens else { return }
-        guard let screen = screens.last else{ return}
-       // let screenWidth = Int(screen.visibleFrame.width)
-       // let screenHeight = Int(screen.visibleFrame.height)
+        guard let screen = NSScreen.deepest else { return }
+        let screenWidth = Int(screen.visibleFrame.width)
+        let screenHeight = Int(screen.visibleFrame.height)
         
         if windowController != nil { return } else {
             // Define the window
@@ -54,16 +55,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             //window.collectionBehavior = .canJoinAllSpaces // Makes window appear in all spaces
             window.collectionBehavior = [.stationary, .fullScreenAuxiliary]
             window.isMovableByWindowBackground = true      // Makes window unmoveable by user
-            window.backgroundColor = .clear                 // Makes window transparent (window is made in SwiftUI)
+            //window.backgroundColor = .clear                 // Makes window transparent (window is made in SwiftUI)
             //window.level = .popUpMenu// Make window stay below all other windows
-            /*window.setFrame(NSRect(x: 0,
-                                   y: 0,
+            window.setFrame(NSRect(x: (screenWidth - screenWidth/2)/2,
+                                   y: screenHeight,
                                    width: screenWidth,
-                                   height: screenHeight),
+                                   height: 100),
                             display: false,
                             animate: true)  // Make the window as big as the readable part on the screen
             
-            */
             // Assign the SwiftUI ContentView to imageWindow
             window.contentView = NSHostingView(rootView: BinaryClockView())
             

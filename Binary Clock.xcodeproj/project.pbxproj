@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C2BC30D2BDAB51A003814A2 /* QuranNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2BC30C2BDAB51A003814A2 /* QuranNetwork.swift */; };
 		A8987602297623C600CFA41D /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A8987601297623C600CFA41D /* README.md */; };
 		A8E5C467298F25BD0039F13D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E5C466298F25BD0039F13D /* Extensions.swift */; };
 		A8FF18D12948BFD80054FE61 /* Binary_ClockApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8FF18D02948BFD80054FE61 /* Binary_ClockApp.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8C2BC30C2BDAB51A003814A2 /* QuranNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuranNetwork.swift; sourceTree = "<group>"; };
 		A8987601297623C600CFA41D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		A8E5C466298F25BD0039F13D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		A8FF18CD2948BFD80054FE61 /* Binary Clock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Binary Clock.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -58,6 +60,7 @@
 			isa = PBXGroup;
 			children = (
 				A8FF18D02948BFD80054FE61 /* Binary_ClockApp.swift */,
+				8C2BC30C2BDAB51A003814A2 /* QuranNetwork.swift */,
 				A8FF18D22948BFD80054FE61 /* ContentView.swift */,
 				A8E5C466298F25BD0039F13D /* Extensions.swift */,
 				A8FF18D42948BFD90054FE61 /* Assets.xcassets */,
@@ -148,6 +151,7 @@
 			files = (
 				A8FF18D32948BFD80054FE61 /* ContentView.swift in Sources */,
 				A8FF18D12948BFD80054FE61 /* Binary_ClockApp.swift in Sources */,
+				8C2BC30D2BDAB51A003814A2 /* QuranNetwork.swift in Sources */,
 				A8E5C467298F25BD0039F13D /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
