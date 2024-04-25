@@ -32,9 +32,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     var isShown = true
     
-    let windowPadding:CGFloat = 10
-    let BinaryClockWindowWidth:CGFloat = 247
-    let BinaryClockWindowHeight:CGFloat = 168
     
     func applicationDidFinishLaunching(_ notification: Notification) {
         showWindow()
@@ -42,9 +39,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func showWindow() {
         // Get screen dimensions
-        guard let screen = NSScreen.main else { return }
-        let screenWidth = Int(screen.visibleFrame.width)
-        let screenHeight = Int(screen.visibleFrame.height)
+        guard let screens = try? NSScreen.screens else { return }
+        guard let screen = screens.last else{ return}
+       // let screenWidth = Int(screen.visibleFrame.width)
+       // let screenHeight = Int(screen.visibleFrame.height)
         
         if windowController != nil { return } else {
             // Define the window
@@ -53,27 +51,27 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                                   backing: .buffered,
                                   defer: true,
                                   screen: NSApp.keyWindow?.screen)
-            
-            window.collectionBehavior = .canJoinAllSpaces   // Makes window appear in all spaces
-            window.isMovableByWindowBackground = false      // Makes window unmoveable by user
+            //window.collectionBehavior = .canJoinAllSpaces // Makes window appear in all spaces
+            window.collectionBehavior = [.stationary, .fullScreenAuxiliary]
+            window.isMovableByWindowBackground = true      // Makes window unmoveable by user
             window.backgroundColor = .clear                 // Makes window transparent (window is made in SwiftUI)
-            window.level = .statusBar // Make window stay below all other windows
-            window.setFrame(NSRect(x: 0,
+            //window.level = .popUpMenu// Make window stay below all other windows
+            /*window.setFrame(NSRect(x: 0,
                                    y: 0,
                                    width: screenWidth,
                                    height: screenHeight),
                             display: false,
                             animate: true)  // Make the window as big as the readable part on the screen
             
-            
+            */
             // Assign the SwiftUI ContentView to imageWindow
             window.contentView = NSHostingView(rootView: BinaryClockView())
             
             // Assign imageWindow to imageWindowController (NSWindowController)
             windowController = .init(window: window)
-            
             // Show window
-            window.makeKeyAndOrderInFrontOfSpaces()
+            window.orderBack(window)
+            //window.makeKeyAndOrderInFrontOfSpaces()
         }
     }
     

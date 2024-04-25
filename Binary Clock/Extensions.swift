@@ -44,7 +44,7 @@ private func CGSAddWindowsToSpaces(_ cid: CGSConnectionID, _ windows: NSArray, _
 // This extension allows the window to be put on "top" of spaces, making it slide with you when you change spaces!
 extension NSWindow {
     func makeKeyAndOrderInFrontOfSpaces() {
-        self.orderFrontRegardless()
+        //self.orderFrontRegardless()
         let contextID = NSApp.value(forKey: "contextID") as! Int
         let spaces: CFArray
         if #available(macOS 12.2, *) {
