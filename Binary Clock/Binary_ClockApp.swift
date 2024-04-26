@@ -67,7 +67,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                                    width: screenWidth,
                                    height: 100),
                             display: false,
-                            animate: true)  // Make the window as big as the readable part on the screen
+                            animate: false)  // Make the window as big as the readable part on the screen
             NSApp.setActivationPolicy(.regular)
             // Assign the SwiftUI ContentView to imageWindow
             window.contentView = NSHostingView(rootView: BinaryClockView())
