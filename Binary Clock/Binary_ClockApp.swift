@@ -74,9 +74,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             
             // Assign imageWindow to imageWindowController (NSWindowController)
             windowController = .init(window: window)
-           
+            // Show window
 
-            window.makeKeyAndOrderFront(nil)  // Show window
+            window.makeKeyAndOrderFront(nil)
+            //window.makeKeyAndOrderInFrontOfSpaces()
         }
     }
     
