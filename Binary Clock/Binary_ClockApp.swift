@@ -24,6 +24,9 @@ struct Binary_ClockApp: App {
                 NSApplication.shared.terminate(nil)
             }
         }
+        WindowGroup {
+            BinaryClockView()
+        } //doesnt make a difference?
     }
 }
 
@@ -36,7 +39,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     func applicationDidFinishLaunching(_ notification: Notification) {
-        showWindow()
+            showWindow()
     }
     
     func showWindow() {
@@ -53,24 +56,26 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                                   defer: true,
                                   screen: NSApp.keyWindow?.screen)
             //window.collectionBehavior = .canJoinAllSpaces // Makes window appear in all spaces
-            window.collectionBehavior = [.stationary, .fullScreenAuxiliary]
+            //window.collectionBehavior = [.fullScreenAuxiliary]
+            window.collectionBehavior = [.fullScreenPrimary, .fullScreenAllowsTiling]
             window.isMovableByWindowBackground = true      // Makes window unmoveable by user
             //window.backgroundColor = .clear                 // Makes window transparent (window is made in SwiftUI)
-            //window.level = .popUpMenu// Make window stay below all other windows
+            window.level = .modalPanel// Make window stay below all other windows
             window.setFrame(NSRect(x: (screenWidth - screenWidth/2)/2,
                                    y: screenHeight,
                                    width: screenWidth,
                                    height: 100),
                             display: false,
                             animate: true)  // Make the window as big as the readable part on the screen
-            
+            NSApp.setActivationPolicy(.regular)
             // Assign the SwiftUI ContentView to imageWindow
             window.contentView = NSHostingView(rootView: BinaryClockView())
             
             // Assign imageWindow to imageWindowController (NSWindowController)
             windowController = .init(window: window)
             // Show window
-            window.orderBack(window)
+            //window.ord
+            window.orderFront(nil)
             //window.makeKeyAndOrderInFrontOfSpaces()
         }
     }
