@@ -24,9 +24,10 @@ struct Binary_ClockApp: App {
                 NSApplication.shared.terminate(nil)
             }
         }
-        WindowGroup {
+        /*WindowGroup {
             BinaryClockView()
         } //doesnt make a difference?
+         */
     }
 }
 
@@ -50,17 +51,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         if windowController != nil { return } else {
             // Define the window
-            let window = NSWindow(contentRect: .zero,
+            let window = NSPanel(contentRect: .zero,
                                   styleMask: .borderless,
                                   backing: .buffered,
                                   defer: true,
                                   screen: NSApp.keyWindow?.screen)
             //window.collectionBehavior = .canJoinAllSpaces // Makes window appear in all spaces
             //window.collectionBehavior = [.fullScreenAuxiliary]
-            window.collectionBehavior = [.fullScreenPrimary, .fullScreenAllowsTiling]
-            window.isMovableByWindowBackground = true      // Makes window unmoveable by user
+            window.collectionBehavior = [.transient]
+            window.isMovableByWindowBackground = false      // Makes window unmoveable by user
             //window.backgroundColor = .clear                 // Makes window transparent (window is made in SwiftUI)
-            window.level = .modalPanel// Make window stay below all other windows
+            //window.level = .modalPanel// Make window stay below all other windows
             window.setFrame(NSRect(x: (screenWidth - screenWidth/2)/2,
                                    y: screenHeight,
                                    width: screenWidth,
@@ -73,10 +74,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             
             // Assign imageWindow to imageWindowController (NSWindowController)
             windowController = .init(window: window)
-            // Show window
-            //window.ord
-            window.orderFront(nil)
-            //window.makeKeyAndOrderInFrontOfSpaces()
+           
+
+            window.makeKeyAndOrderFront(nil)  // Show window
         }
     }
     
@@ -85,5 +85,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         windowController.close()       // Close window
         self.windowController = nil    // Release window controller (will need to be re-made to show window again)
+    }
+}
+
+extension NSPanel {
+    open override var canBecomeKey: Bool {
+        return true
     }
 }
