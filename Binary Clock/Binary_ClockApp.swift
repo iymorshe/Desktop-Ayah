@@ -14,11 +14,17 @@ struct Binary_ClockApp: App {
     var body: some Scene {
         MenuBarExtra("Binary Clock", systemImage: "clock.circle.fill") {
             Text("Binary Clock")
-            Button("Toggle Visibility") {
-                NotificationCenter.default.post(name: Notification.Name.toggleVisibility, object: nil)
+            Button("Refresh Verse") {
+                //NotificationCenter.default.post(name: Notification.Name.toggleVisibility, object: nil)
             }
-            Button("New"){
+            Button("Copy Verse"){
                 
+            }
+            Button("Preferences") {
+                //NSApplication.shared.terminate(nil)
+            }
+            Button("Preferences") {
+                //NSApplication.shared.terminate(nil)
             }
             Button("Quit") {
                 NSApplication.shared.terminate(nil)
@@ -38,8 +44,35 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     var isShown = true
     
-    
+    var window: NSWindow!
     func applicationDidFinishLaunching(_ notification: Notification) {
+        /*
+        guard let screen = NSScreen.deepest else { return }
+        let screenWidth = Int(screen.visibleFrame.width)
+        let screenHeight = Int(screen.visibleFrame.height)
+        window = NSWindow(
+            contentRect: .zero,
+            styleMask: .borderless,backing: .buffered, defer: true)
+                window.center()
+                window.title = "Simple Text Display"
+        //window.collectionBehavior = .transient
+        //window.level = .floating// Make window stay below all other windows
+        window.setFrame(NSRect(x: 0,
+                               y: screenHeight,
+                               width: screenWidth,
+                               height: 100),
+                        display: false,
+                        animate: false)  // Make the window as big as the readable part on the screen
+
+        NSApp.setActivationPolicy(.regular)
+                window.makeKeyAndOrderFront(nil)
+        
+        let label = NSTextField(labelWithString: "Hello, Swift!")
+                label.frame = CGRect(x: 0, y: screenHeight, width: screenWidth, height: 100)
+                label.alignment = .center
+                label.font = NSFont.systemFont(ofSize: 24)
+                window.contentView?.addSubview(label)
+         */
             showWindow()
     }
     
@@ -51,23 +84,24 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         if windowController != nil { return } else {
             // Define the window
-            let window = NSPanel(contentRect: .zero,
+            window = NSWindow(contentRect: .zero,
                                   styleMask: .borderless,
-                                  backing: .buffered,
-                                  defer: true,
-                                  screen: NSApp.keyWindow?.screen)
-            //window.collectionBehavior = .canJoinAllSpaces // Makes window appear in all spaces
-            //window.collectionBehavior = [.fullScreenAuxiliary]
-            window.collectionBehavior = [.transient]
+                                 backing: .buffered,
+                                 defer: true
+                                 )
+            window.collectionBehavior = .transient
             window.isMovableByWindowBackground = false      // Makes window unmoveable by user
             //window.backgroundColor = .clear                 // Makes window transparent (window is made in SwiftUI)
-            //window.level = .modalPanel// Make window stay below all other windows
-            window.setFrame(NSRect(x: (screenWidth - screenWidth/2)/2,
-                                   y: screenHeight,
+            //window.level = .floating// Make window stay below all other windows
+
+            window.setFrame(NSRect(x: 0,
+                                   y: 0,
                                    width: screenWidth,
-                                   height: 100),
-                            display: false,
-                            animate: false)  // Make the window as big as the readable part on the screen
+                                   height: screenHeight),
+                            display: false)  // Make the window as big as the readable part on the screen
+            
+            
+
             NSApp.setActivationPolicy(.regular)
             // Assign the SwiftUI ContentView to imageWindow
             window.contentView = NSHostingView(rootView: BinaryClockView())
@@ -76,7 +110,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             windowController = .init(window: window)
             // Show window
 
-            window.makeKeyAndOrderFront(nil)
+            window.orderFrontRegardless()
+            
             //window.makeKeyAndOrderInFrontOfSpaces()
         }
     }

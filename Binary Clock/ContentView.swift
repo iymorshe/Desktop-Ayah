@@ -23,16 +23,15 @@ let fatihah = ["In the name of God, the Gracious, the Merciful",
 struct BinaryClockView: View {
     
     //@NSApplicationDelegateAdaptor private var appDelegate: AppDelegate
-    
     @State var ayahString : String = fatihah[6]
     var body: some View {
         // REFRESH TIME
         Text("\(ayahString)")
-            .onAppear {
+            /*.onAppear {
                 Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { _ in
                     ayahString = fatihah.randomElement() ?? ""
                 }
-            }
+            } */
     }
 }
 

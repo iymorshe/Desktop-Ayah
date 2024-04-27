@@ -113,7 +113,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A8FF18C82948BFD80054FE61 /* Build configuration list for PBXProject "Binary Clock" */;
+			buildConfigurationList = A8FF18C82948BFD80054FE61 /* Build configuration list for PBXProject "Desktop Ayah" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -329,7 +329,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A8FF18C82948BFD80054FE61 /* Build configuration list for PBXProject "Binary Clock" */ = {
+		A8FF18C82948BFD80054FE61 /* Build configuration list for PBXProject "Desktop Ayah" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A8FF18DA2948BFD90054FE61 /* Debug */,
