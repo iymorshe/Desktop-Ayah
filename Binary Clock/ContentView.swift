@@ -27,6 +27,12 @@ struct BinaryClockView: View {
     var body: some View {
         // REFRESH TIME
         Text("\(ayahString)")
+            .padding()
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+            
+
+            
+        
             /*.onAppear {
                 Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { _ in
                     ayahString = fatihah.randomElement() ?? ""
