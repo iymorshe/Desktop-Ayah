@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		8C2BC30D2BDAB51A003814A2 /* QuranNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2BC30C2BDAB51A003814A2 /* QuranNetwork.swift */; };
+		8C44A1CC2BDE334F0078FC29 /* TextMover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C44A1CB2BDE334F0078FC29 /* TextMover.swift */; };
+		8C44A1CE2BDE36DF0078FC29 /* VSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C44A1CD2BDE36DF0078FC29 /* VSlider.swift */; };
+		8C44A1D02BDE37E30078FC29 /* ContentView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C44A1CF2BDE37E30078FC29 /* ContentView2.swift */; };
 		A8987602297623C600CFA41D /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A8987601297623C600CFA41D /* README.md */; };
 		A8E5C467298F25BD0039F13D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E5C466298F25BD0039F13D /* Extensions.swift */; };
 		A8FF18D12948BFD80054FE61 /* Binary_ClockApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8FF18D02948BFD80054FE61 /* Binary_ClockApp.swift */; };
@@ -18,6 +21,9 @@
 
 /* Begin PBXFileReference section */
 		8C2BC30C2BDAB51A003814A2 /* QuranNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuranNetwork.swift; sourceTree = "<group>"; };
+		8C44A1CB2BDE334F0078FC29 /* TextMover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextMover.swift; sourceTree = "<group>"; };
+		8C44A1CD2BDE36DF0078FC29 /* VSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VSlider.swift; sourceTree = "<group>"; };
+		8C44A1CF2BDE37E30078FC29 /* ContentView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView2.swift; sourceTree = "<group>"; };
 		A8987601297623C600CFA41D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		A8E5C466298F25BD0039F13D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		A8FF18CD2948BFD80054FE61 /* Binary Clock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Binary Clock.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -42,6 +48,9 @@
 		A8FF18C42948BFD80054FE61 = {
 			isa = PBXGroup;
 			children = (
+				8C44A1CF2BDE37E30078FC29 /* ContentView2.swift */,
+				8C44A1CD2BDE36DF0078FC29 /* VSlider.swift */,
+				8C44A1CB2BDE334F0078FC29 /* TextMover.swift */,
 				A8987601297623C600CFA41D /* README.md */,
 				A8FF18CF2948BFD80054FE61 /* Binary Clock */,
 				A8FF18CE2948BFD80054FE61 /* Products */,
@@ -151,6 +160,9 @@
 			files = (
 				A8FF18D32948BFD80054FE61 /* ContentView.swift in Sources */,
 				A8FF18D12948BFD80054FE61 /* Binary_ClockApp.swift in Sources */,
+				8C44A1D02BDE37E30078FC29 /* ContentView2.swift in Sources */,
+				8C44A1CC2BDE334F0078FC29 /* TextMover.swift in Sources */,
+				8C44A1CE2BDE36DF0078FC29 /* VSlider.swift in Sources */,
 				8C2BC30D2BDAB51A003814A2 /* QuranNetwork.swift in Sources */,
 				A8E5C467298F25BD0039F13D /* Extensions.swift in Sources */,
 			);
