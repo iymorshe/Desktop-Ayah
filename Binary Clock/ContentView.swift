@@ -21,13 +21,15 @@ let fatihah = ["In the name of God, the Gracious, the Merciful",
                "7. The path of those You have blessed, not of those against whom there is anger, nor of those who are misguided."
                ]
 struct BinaryClockView: View {
-    
-    //@NSApplicationDelegateAdaptor private var appDelegate: AppDelegate
+
+    @EnvironmentObject var appDelegate: AppDelegate
     @State var ayahString : String = fatihah[6]
     var body: some View {
         // REFRESH TIME
         Text("\(ayahString)")
             .padding()
+            .background(appDelegate.color ? .black : .clear)
+        
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
             
 

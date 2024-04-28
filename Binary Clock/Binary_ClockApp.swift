@@ -6,50 +6,46 @@
 //
 
 import SwiftUI
-
+import Combine
 @main
 struct Binary_ClockApp: App {
-
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     var body: some Scene {
         MenuBarExtra("Binary Clock", systemImage: "clock.circle.fill") {
             Text("Binary Clock")
-            Button("Refresh Verse") {
-                //NotificationCenter.default.post(name: Notification.Name.toggleVisibility, object: nil)
+            Button("Toggle Visibility") { //doesnt work
+                NotificationCenter.default.post(name: Notification.Name.toggleVisibility, object: nil)
             }
             Button("Copy Verse"){
             }
             Button("Preferences") {
-                //NSApplication.shared.terminate(nil)
             }
-            Button("Preferences") {
-                //NSApplication.shared.terminate(nil)
+            Button("Toggle Background") {
+                appDelegate.color.toggle()
             }
             Button("Quit") {
                 NSApplication.shared.terminate(nil)
             }
         }
     }
+        
 }
 
-class AppDelegate: NSObject, NSApplicationDelegate {
-    
+class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
+    @EnvironmentObject var preferences: Preferences
     // Define the window's controller
     private var windowController: NSWindowController?
-    
     var isShown = true
-    
     var window: NSWindow!
+    @Published var color: Bool = false
     func applicationDidFinishLaunching(_ notification: Notification) {
             showWindow()
     }
-    
     func showWindow() {
         // Get screen dimensions
         guard let screen = NSScreen.deepest else { return }
         let screenWidth = Int(screen.visibleFrame.width)
         let screenHeight = Int(screen.visibleFrame.height)
-        
         if windowController != nil { return } else {
             // Define the window
             window = NSWindow(contentRect: .zero,
@@ -58,18 +54,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                                  defer: true
                                  )
             window.collectionBehavior = .transient
-            window.isMovableByWindowBackground = false      // Makes window unmoveable by user
-            window.backgroundColor = .clear                 // Makes window transparent (window is made in SwiftUI)
-
+            window.isMovableByWindowBackground = false
             window.setFrame(NSRect(x: 0,
                                    y: 0,
                                    width: screenWidth,
                                    height: screenHeight),
                             display: false)  // Make the window as big as the readable part on the screen
-
+            window.backgroundColor = .clear
             NSApp.setActivationPolicy(.regular)
             // Assign the SwiftUI ContentView to imageWindow
-            window.contentView = NSHostingView(rootView: BinaryClockView())
+            window.contentView = NSHostingView(rootView: BinaryClockView()
+                .environmentObject(self))
             
             // Assign imageWindow to imageWindowController (NSWindowController)
             windowController = .init(window: window)
@@ -79,6 +74,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             
         }
     }
+    
     
     func hideWindow() {
         guard let windowController = windowController else { return } // If there's no open window, return
@@ -92,4 +88,8 @@ extension NSPanel {
     open override var canBecomeKey: Bool {
         return true
     }
+}
+
+extension Notification.Name {
+    static let preferencesChanged = Notification.Name("preferencesChanged")
 }
