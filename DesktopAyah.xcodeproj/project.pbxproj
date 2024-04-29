@@ -28,6 +28,7 @@
 		8C44A1CF2BDE37E30078FC29 /* ContentView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView2.swift; sourceTree = "<group>"; };
 		8C8E64822BDEE50300410E04 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		8C8E64A12BDF537900410E04 /* data.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = data.json; sourceTree = "<group>"; };
+		8CCE48282BDF6EA000448B10 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = MyPlayground.playground; path = ../MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		A8987601297623C600CFA41D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		A8E5C466298F25BD0039F13D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		A8FF18CD2948BFD80054FE61 /* Binary Clock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Binary Clock.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -52,6 +53,7 @@
 		A8FF18C42948BFD80054FE61 = {
 			isa = PBXGroup;
 			children = (
+				8CCE48282BDF6EA000448B10 /* MyPlayground.playground */,
 				8C8E64A12BDF537900410E04 /* data.json */,
 				8C44A1CF2BDE37E30078FC29 /* ContentView2.swift */,
 				8C44A1CD2BDE36DF0078FC29 /* VSlider.swift */,

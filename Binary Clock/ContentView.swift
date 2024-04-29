@@ -17,6 +17,10 @@ struct BinaryClockView: View {
                 .padding()
                 .background(appDelegate.color ? .black : .clear)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                .onAppear {
+                    print("poob")
+                }
         }
+        
     }
 
