@@ -14,7 +14,7 @@ struct Binary_ClockApp: App {
         MenuBarExtra("Binary Clock", systemImage: "clock.circle.fill") {
             Text("Binary Clock")
             Button("Toggle Visibility") { //doesnt work
-                NotificationCenter.default.post(name: Notification.Name.toggleVisibility, object: nil)
+                //NotificationCenter.default.post(name: Notification.Name.toggleVisibility, object: nil)
             }
             //Button("Copy Verse"){
             //}
@@ -24,9 +24,14 @@ struct Binary_ClockApp: App {
                 appDelegate.color.toggle()
             }
             Button("New Verse") {
+                DispatchQueue.main.async {
+                    appDelegate.newVerse()
+                }
             }
             Button("Quit") {
-                NSApplication.shared.terminate(nil)
+                DispatchQueue.main.async {
+                    NSApplication.shared.terminate(nil)
+                }
             }
         }
     }
@@ -39,7 +44,18 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
     var isShown = true
     var window: NSWindow!
     @Published var ayah: Ayah?
+    @Published var string: String = "habibti"
     @Published var color: Bool = false
+    @MainActor func newVerse() {
+        Task {
+            do {
+                ayah = try await randomVerse()
+                string = ayah?.englishTranslation ?? ""
+            } catch {
+                print("Failed to fetch random verse: \(error)")
+            }
+        }
+    }
     func applicationDidFinishLaunching(_ notification: Notification) {
             showWindow()
     }
