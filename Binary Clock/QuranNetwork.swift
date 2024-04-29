@@ -40,8 +40,8 @@ class Ayah: Decodable, Hashable {
     }
 }
 func randomVerse() async throws -> Ayah {
-    let surahNumber = 2
-    let verseNumber = 5
+    let surahNumber = Int.random(in: 3...10)
+    let verseNumber = Int.random(in: 1...50)
     
     return try await fetchVerse(surahNumber: surahNumber, verseNumber: verseNumber)
 }

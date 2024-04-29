@@ -13,7 +13,7 @@ struct BinaryClockView: View {
     @State var ayahString : Ayah
     var body: some View {
         // REFRESH TIME
-            Text("\(appDelegate.string)")
+        Text("\(appDelegate.ayah?.englishTranslation ?? "") ( \(appDelegate.ayah?.surahNumber ?? 0):\(appDelegate.ayah?.ayahNumber ?? 0) )")
                 .padding()
                 .background(appDelegate.color ? .black : .clear)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
