@@ -16,12 +16,14 @@ struct Binary_ClockApp: App {
             Button("Toggle Visibility") { //doesnt work
                 NotificationCenter.default.post(name: Notification.Name.toggleVisibility, object: nil)
             }
-            Button("Copy Verse"){
-            }
-            Button("Preferences") {
-            }
+            //Button("Copy Verse"){
+            //}
+            //Button("Preferences") {
+            //}
             Button("Toggle Background") {
                 appDelegate.color.toggle()
+            }
+            Button("New Verse") {
             }
             Button("Quit") {
                 NSApplication.shared.terminate(nil)
@@ -32,11 +34,11 @@ struct Binary_ClockApp: App {
 }
 
 class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
-    @EnvironmentObject var preferences: Preferences
     // Define the window's controller
     private var windowController: NSWindowController?
     var isShown = true
     var window: NSWindow!
+    @Published var ayah: Ayah?
     @Published var color: Bool = false
     func applicationDidFinishLaunching(_ notification: Notification) {
             showWindow()
@@ -62,9 +64,28 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
                             display: false)  // Make the window as big as the readable part on the screen
             window.backgroundColor = .clear
             NSApp.setActivationPolicy(.regular)
-            // Assign the SwiftUI ContentView to imageWindow
-            window.contentView = NSHostingView(rootView: BinaryClockView()
-                .environmentObject(self))
+            do {
+                // Get the URL for the data.json file in the app bundle
+                guard let fileURL = Bundle.main.url(forResource: "data", withExtension: "json") else {
+                    print("Failed to locate data.json in bundle.")
+                    return
+                }
+
+                // Load the data from the file into a Data object
+                let data = try Data(contentsOf: fileURL)
+
+                // Decode the JSON data into an Ayah object
+                let decoder = JSONDecoder()
+                let decodedData = try decoder.decode(AyahDataWrapper.self, from: data)
+                let ayah = decodedData.data
+
+                // Use the Ayah object to initialize BinaryClockView
+                window.contentView = NSHostingView(rootView: BinaryClockView(ayahString: ayah).environmentObject(self))
+            } catch {
+                print("Failed to load or decode data: \(error)")
+            }            // Assign the SwiftUI ContentView to imageWindow
+            //window.contentView = NSHostingView(rootView: BinaryClockView(ayahString: Ayah)
+               // .environmentObject(self))
             
             // Assign imageWindow to imageWindowController (NSWindowController)
             windowController = .init(window: window)

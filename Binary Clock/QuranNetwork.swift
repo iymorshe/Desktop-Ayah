@@ -39,6 +39,12 @@ class Ayah: Decodable, Hashable {
         englishTranslation = try container.decode(String.self, forKey: .englishTranslation)
     }
 }
+func randomVerse() async throws -> Ayah {
+    let surahNumber = Int(arc4random_uniform(29) + 2)
+    let verseNumber = Int(arc4random_uniform(59) + 1)
+    
+    return try await fetchVerse(surahNumber: surahNumber, verseNumber: verseNumber)
+}
 func fetchVerse(surahNumber: Int, verseNumber: Int) async throws -> Ayah {
     let urlString = "https://api.alquran.cloud/v1/ayah/\(surahNumber):\(verseNumber)/en.asad"
     guard let url = URL(string: urlString) else {

@@ -17,3 +17,5 @@ class Preferences: ObservableObject {
     
     
 }
+
+let jsonString = ""
