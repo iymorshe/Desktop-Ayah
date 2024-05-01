@@ -46,7 +46,7 @@ func randomVerse() async throws -> Ayah {
     return try await fetchVerse(surahNumber: surahNumber, verseNumber: verseNumber)
 }
 func fetchVerse(surahNumber: Int, verseNumber: Int) async throws -> Ayah {
-    let urlString = "https://api.alquran.cloud/v1/ayah/\(surahNumber):\(verseNumber)/en.asad"
+    let urlString = "https://api.alquran.cloud/v1/ayah/\(surahNumber):\(verseNumber)/arabic.asad"
     guard let url = URL(string: urlString) else {
         throw QuranError.invalidRange
     }

@@ -18,14 +18,20 @@ struct Binary_ClockApp: App {
             }
             //Button("Copy Verse"){
             //}
-            //Button("Preferences") {
-            //}
+            Button("Preferences") {
+                appDelegate.fontSize += 100
+            }
             Button("Toggle Background") {
                 appDelegate.color.toggle()
             }
             Button("New Verse") {
                 DispatchQueue.main.async {
                     appDelegate.newVerse()
+                }
+            }
+            Button("Feedback") {
+                DispatchQueue.main.async {
+                    NSApplication.shared.terminate(nil)
                 }
             }
             Button("Quit") {
@@ -46,6 +52,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
     @Published var ayah: Ayah?
     @Published var string: String = "habibti"
     @Published var color: Bool = false
+    @Published var fontSize: Int = 36
     @MainActor func newVerse() {
         Task {
             do {
