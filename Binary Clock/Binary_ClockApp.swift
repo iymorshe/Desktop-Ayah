@@ -93,7 +93,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
                                  backing: .buffered,
                                  defer: true
                                  )
-            window.collectionBehavior = .transient
+            window.collectionBehavior = [.transient]
+            //window.level = .floating
             window.isMovableByWindowBackground = false
             window.setFrame(NSRect(x: 0,
                                    y: 0,
@@ -129,22 +130,28 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
         if preferencesController != nil { return } else {
             print("haibib")
             // Define the window
-            preferencesWindow = NSWindow(contentRect: CGRect(x: 5, y: 5, width: 5, height: 5),
-                              styleMask: .borderless,
-                              backing: .buffered,
-                              defer: true
+            preferencesWindow = NSWindow(contentRect: NSRect(x: Int(NSScreen.main?.visibleFrame.midX ?? 0) - 100,
+                                                             y: Int(NSScreen.main?.visibleFrame.midY ?? 0) - 100,
+                                                             width: 200,
+                                                             height: 200),
+                                         styleMask: .closable,
+                                         backing: .buffered,
+                                         defer: true
             )
-            preferencesWindow.setFrame(NSRect(x: 0,
-                                   y: 0,
-                                   width: 50,
-                                   height: 50),
+            //preferencesWindow.collectionBehavior = [.transient]
+            preferencesWindow.isMovableByWindowBackground = true
+            //preferencesWindow.backgroundColor = .black
+            preferencesWindow.setFrame(NSRect(x: Int(NSScreen.main?.visibleFrame.midX ?? 0) - 100,
+                                              y: Int(NSScreen.main?.visibleFrame.midY ?? 0) - 100,
+                                              width: 200,
+                                              height: 200),
                             display: true)
             preferencesWindow.contentView = NSHostingView(rootView: Preferences())
             
             preferencesController = .init(window: preferencesWindow)
             // Show window
 
-            preferencesWindow.orderFrontRegardless()
+            preferencesWindow.makeKeyAndOrderInFrontOfSpaces()
             
         }
     }
