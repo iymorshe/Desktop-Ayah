@@ -21,8 +21,9 @@ struct BinaryClockView: View {
                 .onAppear {
                     appDelegate.newVerse()
                 }
-        }
-        
-        
+                .onReceive(Timer.publish(every: 12 * 60 * 60, on: .main, in: .common).autoconnect()) { _ in
+                    appDelegate.newVerse()
+                }
     }
+}
 

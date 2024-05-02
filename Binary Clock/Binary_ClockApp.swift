@@ -126,6 +126,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
         windowController.close()       // Close window
         self.windowController = nil    // Release window controller (will need to be re-made to show window again)
     }
+    func hidePreferences() {
+        guard let preferencesController = preferencesController else { return } // If there's no open window, return
+        
+        preferencesController.close()       // Close window
+        self.preferencesController = nil    // Release window controller (will need to be re-made to show window again)
+    }
     func showPreferences() {
         if preferencesController != nil { return } else {
             print("haibib")
@@ -146,7 +152,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
                                               width: 200,
                                               height: 200),
                             display: true)
-            preferencesWindow.contentView = NSHostingView(rootView: Preferences())
+            preferencesWindow.contentView = NSHostingView(rootView: Preferences().environmentObject(self))
             
             preferencesController = .init(window: preferencesWindow)
             // Show window

@@ -8,29 +8,45 @@
 import SwiftUI
 
 struct Preferences: View {
+    
+    @EnvironmentObject var appDelegate: AppDelegate
     @State private var selectedTab = "General"
     @State private var sliderValue: Double = 0.5
     @State private var placeOverDesktopIcons: Bool = true
 
     var body: some View {
-        TabView(selection: $selectedTab) {
-            GeneralView().tabItem {
-                Label("General", systemImage: "gear")
-            }.tag("General")
+        VStack {
+            HStack {
+                Button(action: {
+                    appDelegate.hidePreferences()
+                }) {
+                    Image(systemName: "xmark")
+                        .font(.system(size: 15))
+                }
+                Spacer()
+            }
+            .padding(.horizontal)
+            .padding(.top)
             
-            PositionView(sliderValue: $sliderValue, placeOverDesktopIcons: $placeOverDesktopIcons).tabItem {
-                Label("Position", systemImage: "arrow.up.arrow.down")
-            }.tag("Position")
-            
-            Text("Text Options").tabItem {
-                Label("Text", systemImage: "textformat")
-            }.tag("Text")
-            
-            Text("Overlay Options").tabItem {
-                Label("Overlay", systemImage: "camera.filters")
-            }.tag("Overlay")
+            TabView(selection: $selectedTab) {
+                GeneralView().tabItem {
+                    Label("General", systemImage: "gear")
+                }.tag("General")
+                
+                PositionView(sliderValue: $sliderValue, placeOverDesktopIcons: $placeOverDesktopIcons).tabItem {
+                    Label("Position", systemImage: "arrow.up.arrow.down")
+                }.tag("Position")
+                
+                Text("Text Options").tabItem {
+                    Label("Text", systemImage: "textformat")
+                }.tag("Text")
+                
+                Text("Overlay Options").tabItem {
+                    Label("Overlay", systemImage: "camera.filters")
+                }.tag("Overlay")
+            }
+            .frame(width: 400, height: 300)
         }
-        .frame(width: 400, height: 300)
     }
 }
 
@@ -46,9 +62,11 @@ struct PositionView: View {
     
     var body: some View {
         VStack {
-            Slider(value: $sliderValue, in: 0...1, step: 0.1)
-            Toggle("Place over desktop icons", isOn: $placeOverDesktopIcons)
-        }
+            VSlider(value: $sliderValue,
+                    in: 0...1,
+                    step: 0.1,
+                    onEditingChanged: { print($0 ? "Moving Slider" : "Stopped moving Slider") }
+        )}
         .padding()
     }
 }
