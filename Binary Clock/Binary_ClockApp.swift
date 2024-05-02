@@ -67,6 +67,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
     @Published var string: String = "habibti"
     @Published var color: Bool = false
     @Published var fontSize: Int = 36
+    @Published var sliderValue: Double = 0.0
     @MainActor func newVerse() {
         Task {
             do {

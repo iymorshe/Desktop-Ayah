@@ -11,7 +11,6 @@ struct Preferences: View {
     
     @EnvironmentObject var appDelegate: AppDelegate
     @State private var selectedTab = "General"
-    @State private var sliderValue: Double = 0.5
     @State private var placeOverDesktopIcons: Bool = true
 
     var body: some View {
@@ -33,7 +32,9 @@ struct Preferences: View {
                     Label("General", systemImage: "gear")
                 }.tag("General")
                 
-                PositionView(sliderValue: $sliderValue, placeOverDesktopIcons: $placeOverDesktopIcons).tabItem {
+                PositionView()
+                    .environmentObject(appDelegate)
+                    .tabItem {
                     Label("Position", systemImage: "arrow.up.arrow.down")
                 }.tag("Position")
                 
@@ -57,14 +58,13 @@ struct GeneralView: View {
 }
 
 struct PositionView: View {
-    @Binding var sliderValue: Double
-    @Binding var placeOverDesktopIcons: Bool
+    @EnvironmentObject var appDelegate: AppDelegate
     
     var body: some View {
         VStack {
-            VSlider(value: $sliderValue,
+            VSlider(value: $appDelegate.sliderValue,
                     in: 0...1,
-                    step: 0.1,
+                    step: 0.01,
                     onEditingChanged: { print($0 ? "Moving Slider" : "Stopped moving Slider") }
         )}
         .padding()
