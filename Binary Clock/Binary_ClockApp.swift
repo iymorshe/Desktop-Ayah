@@ -98,10 +98,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
             //window.level = .floating
             window.isMovableByWindowBackground = false
             window.setFrame(NSRect(x: 0,
-                                   y: 0,
+                                   y: screenHeight - Int(screen.visibleFrame.height),
                                    width: screenWidth,
                                    height: screenHeight),
-                            display: false)  // Make the window as big as the readable part on the screen
+                            display: false)  // Move the window to the top of the screen
             window.backgroundColor = .clear
             NSApp.setActivationPolicy(.regular)
 
