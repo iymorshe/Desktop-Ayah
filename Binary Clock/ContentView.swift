@@ -10,7 +10,6 @@ import SwiftUI
 struct BinaryClockView: View {
 
     @EnvironmentObject var appDelegate: AppDelegate
-    @State var ayahString : Ayah
     var body: some View {
         // REFRESH TIME
         Text("\(appDelegate.ayah?.englishTranslation ?? "") ( \(appDelegate.ayah?.surahNumber ?? 0):\(appDelegate.ayah?.ayahNumber ?? 0) )")

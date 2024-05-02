@@ -7,15 +7,9 @@
 
 import Foundation
 import SwiftUI
-class Preferences: ObservableObject {
-    
-    @Published var clear = true
-    var verticalPosition: Double = 0.0
-    
-    init() {
-    }
-    
-    
-}
 
-let jsonString = ""
+struct Preferences: View {
+    var body: some View {
+        Text("habibi")
+    }
+}

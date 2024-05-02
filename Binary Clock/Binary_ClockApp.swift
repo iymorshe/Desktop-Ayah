@@ -8,36 +8,47 @@
 import SwiftUI
 import Combine
 @main
-struct Binary_ClockApp: App {
+struct DesktopQuran: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    @State var shown: Bool = true
     var body: some Scene {
         MenuBarExtra("Binary Clock", systemImage: "clock.circle.fill") {
-            Text("Binary Clock")
-            Button("Toggle Visibility") { //doesnt work
-                //NotificationCenter.default.post(name: Notification.Name.toggleVisibility, object: nil)
-            }
-            //Button("Copy Verse"){
-            //}
-            Button("Preferences") {
-                appDelegate.fontSize += 100
-            }
-            Button("Toggle Background") {
-                appDelegate.color.toggle()
-            }
-            Button("New Verse") {
+            Button("Refresh Verse") {
                 DispatchQueue.main.async {
                     appDelegate.newVerse()
                 }
+            }
+            Button("Copy Verse") {
+                let copiedText = "\(appDelegate.ayah?.englishTranslation ?? "") ( \(appDelegate.ayah?.surahNumber ?? 0):\(appDelegate.ayah?.ayahNumber ?? 0) )"
+                NSPasteboard.general.clearContents() // Clear the clipboard
+                NSPasteboard.general.setString(copiedText, forType: .string) // Set the copied text to the clipboard
+            }
+            Divider()
+            Button("Preferences") {
+                appDelegate.showPreferences()
+            }
+            /*
+            Button("Toggle Background") {
+                appDelegate.color.toggle()
+            } */
+            
+            Divider()
+            Button("Toggle Visibility") { //doesnt work
+                if shown { //hide the window
+                    appDelegate.hideWindow()
+                } else {
+                    appDelegate.showWindow()
+                }
+                shown.toggle()
             }
             Button("Feedback") {
                 DispatchQueue.main.async {
                     NSApplication.shared.terminate(nil)
                 }
             }
+
             Button("Quit") {
-                DispatchQueue.main.async {
                     NSApplication.shared.terminate(nil)
-                }
             }
         }
     }
@@ -65,6 +76,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
     }
     func applicationDidFinishLaunching(_ notification: Notification) {
             showWindow()
+    
     }
     func showWindow() {
         // Get screen dimensions
@@ -87,26 +99,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
                             display: false)  // Make the window as big as the readable part on the screen
             window.backgroundColor = .clear
             NSApp.setActivationPolicy(.regular)
-            do {
-                // Get the URL for the data.json file in the app bundle
-                guard let fileURL = Bundle.main.url(forResource: "data", withExtension: "json") else {
-                    print("Failed to locate data.json in bundle.")
-                    return
-                }
-
-                // Load the data from the file into a Data object
-                let data = try Data(contentsOf: fileURL)
-
-                // Decode the JSON data into an Ayah object
-                let decoder = JSONDecoder()
-                let decodedData = try decoder.decode(AyahDataWrapper.self, from: data)
-                let ayah = decodedData.data
 
                 // Use the Ayah object to initialize BinaryClockView
-                window.contentView = NSHostingView(rootView: BinaryClockView(ayahString: ayah).environmentObject(self))
-            } catch {
-                print("Failed to load or decode data: \(error)")
-            }            // Assign the SwiftUI ContentView to imageWindow
+                window.contentView = NSHostingView(rootView: BinaryClockView().environmentObject(self))
+                     // Assign the SwiftUI ContentView to imageWindow
             //window.contentView = NSHostingView(rootView: BinaryClockView(ayahString: Ayah)
                // .environmentObject(self))
             
@@ -125,6 +121,24 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
         
         windowController.close()       // Close window
         self.windowController = nil    // Release window controller (will need to be re-made to show window again)
+    }
+    func showPreferences() {
+        if windowController != nil { return } else {
+            print("haibib")
+            // Define the window
+            window = NSWindow(contentRect: .zero,
+                              styleMask: .borderless,
+                              backing: .buffered,
+                              defer: true
+            )
+            window.setFrame(NSRect(x: 0,
+                                   y: 0,
+                                   width: 50,
+                                   height: 50),
+                            display: false)
+            window.contentView = NSHostingView(rootView: Preferences())
+            
+        }
     }
 }
 
