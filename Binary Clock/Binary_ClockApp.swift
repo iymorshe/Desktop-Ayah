@@ -58,8 +58,11 @@ struct DesktopQuran: App {
 class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
     // Define the window's controller
     private var windowController: NSWindowController?
+    
+    private var preferencesController: NSWindowController?
     var isShown = true
     var window: NSWindow!
+    var preferencesWindow: NSWindow!
     @Published var ayah: Ayah?
     @Published var string: String = "habibti"
     @Published var color: Bool = false
@@ -123,20 +126,25 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
         self.windowController = nil    // Release window controller (will need to be re-made to show window again)
     }
     func showPreferences() {
-        if windowController != nil { return } else {
+        if preferencesController != nil { return } else {
             print("haibib")
             // Define the window
-            window = NSWindow(contentRect: .zero,
+            preferencesWindow = NSWindow(contentRect: CGRect(x: 5, y: 5, width: 5, height: 5),
                               styleMask: .borderless,
                               backing: .buffered,
                               defer: true
             )
-            window.setFrame(NSRect(x: 0,
+            preferencesWindow.setFrame(NSRect(x: 0,
                                    y: 0,
                                    width: 50,
                                    height: 50),
-                            display: false)
-            window.contentView = NSHostingView(rootView: Preferences())
+                            display: true)
+            preferencesWindow.contentView = NSHostingView(rootView: Preferences())
+            
+            preferencesController = .init(window: preferencesWindow)
+            // Show window
+
+            preferencesWindow.orderFrontRegardless()
             
         }
     }
