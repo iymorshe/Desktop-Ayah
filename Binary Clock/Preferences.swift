@@ -29,7 +29,7 @@ struct Preferences: View {
             
             TabView(selection: $selectedTab) {
                 GeneralView().tabItem {
-                    Label("General", systemImage: "gear")
+                    Label("Timing", systemImage: "gear")
                 }.tag("General")
                 
                 PositionView()
@@ -37,7 +37,7 @@ struct Preferences: View {
                     .tabItem {
                     Label("Position", systemImage: "arrow.up.arrow.down")
                 }.tag("Position")
-                
+                /*
                 Text("Text Options").tabItem {
                     Label("Text", systemImage: "textformat")
                 }.tag("Text")
@@ -45,6 +45,7 @@ struct Preferences: View {
                 Text("Overlay Options").tabItem {
                     Label("Overlay", systemImage: "camera.filters")
                 }.tag("Overlay")
+                 */
             }
             .frame(width: 400, height: 300)
         }
@@ -52,10 +53,27 @@ struct Preferences: View {
 }
 
 struct GeneralView: View {
+    @EnvironmentObject var appDelegate: AppDelegate
+
     var body: some View {
-        Text("General Settings")
+        VStack {
+
+            Picker("Refresh Interval", selection: $appDelegate.timerUpdate) {
+                Text("Every 12 hours").tag(12)
+                Text("Every 24 hours").tag(24)
+                Text("Don't refresh automatically").tag(999)
+            }
+            .pickerStyle(MenuPickerStyle())
+            .padding()
+            Button(action: {
+                appDelegate.color.toggle()
+            }, label: {
+                Text("Toggle Background")
+            })
+        }
     }
 }
+
 
 struct PositionView: View {
     @EnvironmentObject var appDelegate: AppDelegate
@@ -65,7 +83,9 @@ struct PositionView: View {
             VSlider(value: $appDelegate.sliderValue,
                     in: 0...1,
                     step: 0.01,
-                    onEditingChanged: { print($0 ? "Moving Slider" : "Stopped moving Slider") }
+                    onEditingChanged: { _ in
+                
+            }
         )}
         .padding()
     }

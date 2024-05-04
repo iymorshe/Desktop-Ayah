@@ -12,11 +12,10 @@ struct DesktopQuran: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @State var shown: Bool = true
     var body: some Scene {
-        MenuBarExtra("Binary Clock", systemImage: "clock.circle.fill") {
+        MenuBarExtra("Binary Clock", systemImage: "moon.stars.circle.fill") {
             Button("Refresh Verse") {
-                DispatchQueue.main.async {
                     appDelegate.newVerse()
-                }
+            
             }
             Button("Copy Verse") {
                 let copiedText = "\(appDelegate.ayah?.englishTranslation ?? "") ( \(appDelegate.ayah?.surahNumber ?? 0):\(appDelegate.ayah?.ayahNumber ?? 0) )"
@@ -27,10 +26,9 @@ struct DesktopQuran: App {
             Button("Preferences") {
                 appDelegate.showPreferences()
             }
-            /*
             Button("Toggle Background") {
                 appDelegate.color.toggle()
-            } */
+            }
             
             Divider()
             Button("Toggle Visibility") { //doesnt work
@@ -41,11 +39,13 @@ struct DesktopQuran: App {
                 }
                 shown.toggle()
             }
+            /*
             Button("Feedback") {
                 DispatchQueue.main.async {
                     NSApplication.shared.terminate(nil)
                 }
             }
+             */
 
             Button("Quit") {
                     NSApplication.shared.terminate(nil)
@@ -67,7 +67,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
     @Published var string: String = "habibti"
     @Published var color: Bool = false
     @Published var fontSize: Int = 36
-    @Published var sliderValue: Double = 0.0
+    @Published var sliderValue: Double = 1.0
+    @Published var timerUpdate: Int = 24
     @MainActor func newVerse() {
         Task {
             do {
@@ -135,7 +136,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
     }
     func showPreferences() {
         if preferencesController != nil { return } else {
-            print("haibib")
             // Define the window
             preferencesWindow = NSWindow(contentRect: NSRect(x: Int(NSScreen.main?.visibleFrame.midX ?? 0) - 100,
                                                              y: Int(NSScreen.main?.visibleFrame.midY ?? 0) - 100,
@@ -147,7 +147,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
             )
             //preferencesWindow.collectionBehavior = [.transient]
             preferencesWindow.isMovableByWindowBackground = true
-            //preferencesWindow.backgroundColor = .black
+            
+            preferencesWindow.isOpaque = false
             preferencesWindow.setFrame(NSRect(x: Int(NSScreen.main?.visibleFrame.midX ?? 0) - 100,
                                               y: Int(NSScreen.main?.visibleFrame.midY ?? 0) - 100,
                                               width: 200,
@@ -157,9 +158,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
             
             preferencesController = .init(window: preferencesWindow)
             // Show window
-
-            preferencesWindow.makeKeyAndOrderInFrontOfSpaces()
-            
+            preferencesWindow.orderFrontRegardless()
+           
         }
     }
 }

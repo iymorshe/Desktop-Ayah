@@ -15,7 +15,6 @@
 		8C8E64A22BDF537A00410E04 /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = 8C8E64A12BDF537900410E04 /* data.json */; };
 		8CCE48652BE21A8400448B10 /* uthmani.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8CCE48642BE21A8400448B10 /* uthmani.otf */; };
 		A8987602297623C600CFA41D /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A8987601297623C600CFA41D /* README.md */; };
-		A8E5C467298F25BD0039F13D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E5C466298F25BD0039F13D /* Extensions.swift */; };
 		A8FF18D12948BFD80054FE61 /* Binary_ClockApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8FF18D02948BFD80054FE61 /* Binary_ClockApp.swift */; };
 		A8FF18D32948BFD80054FE61 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8FF18D22948BFD80054FE61 /* ContentView.swift */; };
 		A8FF18D52948BFD90054FE61 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8FF18D42948BFD90054FE61 /* Assets.xcassets */; };
@@ -33,8 +32,7 @@
 		8CCE48642BE21A8400448B10 /* uthmani.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = uthmani.otf; sourceTree = "<group>"; };
 		8CCE48662BE21B2B00448B10 /* Binary-Clock-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Binary-Clock-Info.plist"; sourceTree = SOURCE_ROOT; };
 		A8987601297623C600CFA41D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		A8E5C466298F25BD0039F13D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		A8FF18CD2948BFD80054FE61 /* Binary Clock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Binary Clock.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A8FF18CD2948BFD80054FE61 /* Desktop Quran.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Desktop Quran.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8FF18D02948BFD80054FE61 /* Binary_ClockApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Binary_ClockApp.swift; sourceTree = "<group>"; };
 		A8FF18D22948BFD80054FE61 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A8FF18D42948BFD90054FE61 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -71,7 +69,7 @@
 		A8FF18CE2948BFD80054FE61 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A8FF18CD2948BFD80054FE61 /* Binary Clock.app */,
+				A8FF18CD2948BFD80054FE61 /* Desktop Quran.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -84,7 +82,6 @@
 				A8FF18D02948BFD80054FE61 /* Binary_ClockApp.swift */,
 				8C2BC30C2BDAB51A003814A2 /* QuranNetwork.swift */,
 				A8FF18D22948BFD80054FE61 /* ContentView.swift */,
-				A8E5C466298F25BD0039F13D /* Extensions.swift */,
 				A8FF18D42948BFD90054FE61 /* Assets.xcassets */,
 				A8FF18D92948BFD90054FE61 /* Binary_Clock.entitlements */,
 				A8FF18D62948BFD90054FE61 /* Preview Content */,
@@ -103,9 +100,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A8FF18CC2948BFD80054FE61 /* Binary Clock */ = {
+		A8FF18CC2948BFD80054FE61 /* Desktop Quran */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A8FF18DC2948BFD90054FE61 /* Build configuration list for PBXNativeTarget "Binary Clock" */;
+			buildConfigurationList = A8FF18DC2948BFD90054FE61 /* Build configuration list for PBXNativeTarget "Desktop Quran" */;
 			buildPhases = (
 				A8FF18C92948BFD80054FE61 /* Sources */,
 				A8FF18CA2948BFD80054FE61 /* Frameworks */,
@@ -115,9 +112,9 @@
 			);
 			dependencies = (
 			);
-			name = "Binary Clock";
+			name = "Desktop Quran";
 			productName = "Binary Clock";
-			productReference = A8FF18CD2948BFD80054FE61 /* Binary Clock.app */;
+			productReference = A8FF18CD2948BFD80054FE61 /* Desktop Quran.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -148,7 +145,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A8FF18CC2948BFD80054FE61 /* Binary Clock */,
+				A8FF18CC2948BFD80054FE61 /* Desktop Quran */,
 			);
 		};
 /* End PBXProject section */
@@ -180,7 +177,6 @@
 				8C44A1CE2BDE36DF0078FC29 /* VSlider.swift in Sources */,
 				8C2BC30D2BDAB51A003814A2 /* QuranNetwork.swift in Sources */,
 				8C8E64832BDEE50300410E04 /* Preferences.swift in Sources */,
-				A8E5C467298F25BD0039F13D /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,6 +310,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Binary-Clock-Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -342,6 +339,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Binary-Clock-Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -368,7 +366,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A8FF18DC2948BFD90054FE61 /* Build configuration list for PBXNativeTarget "Binary Clock" */ = {
+		A8FF18DC2948BFD90054FE61 /* Build configuration list for PBXNativeTarget "Desktop Quran" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A8FF18DD2948BFD90054FE61 /* Debug */,
