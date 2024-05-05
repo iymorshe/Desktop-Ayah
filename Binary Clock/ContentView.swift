@@ -22,9 +22,6 @@ struct BinaryClockView: View {
                     .frame(maxWidth: .infinity, alignment: .center)
                     .position(x: geometry.size.width / 2, y: geometry.size.height * (-appDelegate.sliderValue + 1.05)) // Position the Text based on appDelegate.sliderValue
                     .lineSpacing(10) // Add line spacing to make the text double spaced
-                    .onAppear {
-                        appDelegate.newVerse()
-                    }
                     .onReceive(Timer.publish(every: TimeInterval(appDelegate.timerUpdate * 60 * 60), on: .main, in: .common).autoconnect()) { _ in
                         appDelegate.newVerse()
                     }

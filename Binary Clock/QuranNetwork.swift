@@ -10,6 +10,8 @@ class Ayah: Decodable, Hashable {
     let surahNumber: Int
     let ayahNumber: Int
     let englishTranslation: String
+    let arabicTranslation: String = ""
+    //let surahName: String
     var isFavorite: Bool = false
     func hash(into hasher: inout Hasher) {
         hasher.combine(surahNumber)
@@ -28,6 +30,7 @@ class Ayah: Decodable, Hashable {
         case ayahNumber = "numberInSurah"
         case englishTranslation = "text"
         case surah
+        //case arabicTranslation = "text"
     }
 
     // Custom decoder to navigate through the nested JSON structure
@@ -37,17 +40,17 @@ class Ayah: Decodable, Hashable {
         surahNumber = try surahContainer.decode(Int.self, forKey: .surahNumber)
         ayahNumber = try container.decode(Int.self, forKey: .ayahNumber)
         englishTranslation = try container.decode(String.self, forKey: .englishTranslation)
+        //arabicTranslation = try container.decode(String.self, forKey: <#T##CodingKeys#>)
+        //surahName = try container.decode(String.self, forKey: )
     }
 }
 func randomVerse() async throws -> Ayah {
-    let surahNumber = Int.random(in: 3...10)
-    let verseNumber = Int.random(in: 1...50)
     let number = Int.random(in: 1...6236)
      
-    return try await fetchVerse(surahNumber: surahNumber, verseNumber: verseNumber)
+    return try await fetchVerse(number:number)
 }
-func fetchVerse(surahNumber: Int, verseNumber: Int) async throws -> Ayah {
-    let urlString = "https://api.alquran.cloud/v1/ayah/\(surahNumber):\(verseNumber)/arabic.asad"
+func fetchVerse(number: Int) async throws -> Ayah {
+    let urlString = "https://api.alquran.cloud/v1/ayah/\(number)/arabic.asad"
     guard let url = URL(string: urlString) else {
         throw QuranError.invalidRange
     }
@@ -55,6 +58,9 @@ func fetchVerse(surahNumber: Int, verseNumber: Int) async throws -> Ayah {
     do {
         let (data, _) = try await URLSession.shared.data(from: url)
         // Decode directly into Ayah struct
+        if let json = String(data: data, encoding: .utf8) {
+                    print("Received JSON: \(json)")
+                }
         let decoder = JSONDecoder()
         let decodedData = try decoder.decode(AyahDataWrapper.self, from: data)
         return decodedData.data
@@ -79,6 +85,3 @@ enum QuranError: Error {
     case parsingError(Error)
 }
 
-let ayahsPerQuran : [Int] = [
-0, 7, 286, 200, /* Add the missing values here */
-]

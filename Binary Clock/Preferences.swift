@@ -80,13 +80,17 @@ struct PositionView: View {
     
     var body: some View {
         VStack {
+            Text("Top of Screen")
             VSlider(value: $appDelegate.sliderValue,
                     in: 0...1,
                     step: 0.01,
                     onEditingChanged: { _ in
                 
             }
-        )}
+                    
+            )
+            Text("Bottom of Screen")
+        }
         .padding()
     }
 }

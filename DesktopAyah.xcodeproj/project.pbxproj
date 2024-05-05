@@ -306,7 +306,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Binary Clock/Binary_Clock.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"Binary Clock/Preview Content\"";
 				DEVELOPMENT_TEAM = 55N9G92HC4;
 				ENABLE_PREVIEWS = YES;
@@ -319,7 +319,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.KaiAzim.Binary-Clock";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -335,7 +335,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Binary Clock/Binary_Clock.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"Binary Clock/Preview Content\"";
 				DEVELOPMENT_TEAM = 55N9G92HC4;
 				ENABLE_PREVIEWS = YES;
@@ -348,7 +348,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.KaiAzim.Binary-Clock";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

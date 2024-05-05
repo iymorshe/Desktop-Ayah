@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import SwiftData
 @main
 struct DesktopQuran: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
@@ -15,7 +16,6 @@ struct DesktopQuran: App {
         MenuBarExtra("Binary Clock", systemImage: "moon.stars.circle.fill") {
             Button("Refresh Verse") {
                     appDelegate.newVerse()
-            
             }
             Button("Copy Verse") {
                 let copiedText = "\(appDelegate.ayah?.englishTranslation ?? "") ( \(appDelegate.ayah?.surahNumber ?? 0):\(appDelegate.ayah?.ayahNumber ?? 0) )"
@@ -26,10 +26,6 @@ struct DesktopQuran: App {
             Button("Preferences") {
                 appDelegate.showPreferences()
             }
-            Button("Toggle Background") {
-                appDelegate.color.toggle()
-            }
-            
             Divider()
             Button("Toggle Visibility") { //doesnt work
                 if shown { //hide the window
@@ -39,14 +35,6 @@ struct DesktopQuran: App {
                 }
                 shown.toggle()
             }
-            /*
-            Button("Feedback") {
-                DispatchQueue.main.async {
-                    NSApplication.shared.terminate(nil)
-                }
-            }
-             */
-
             Button("Quit") {
                     NSApplication.shared.terminate(nil)
             }
@@ -83,11 +71,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
             showWindow()
     
     }
-    func showWindow() {
+    @MainActor func showWindow() {
         // Get screen dimensions
         guard let screen = NSScreen.deepest else { return }
         let screenWidth = Int(screen.visibleFrame.width)
         let screenHeight = Int(screen.visibleFrame.height)
+        if ayah == nil {
+            self.newVerse()
+        }
         if windowController != nil { return } else {
             // Define the window
             window = NSWindow(contentRect: .zero,
@@ -108,15 +99,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
 
                 // Use the Ayah object to initialize BinaryClockView
                 window.contentView = NSHostingView(rootView: BinaryClockView().environmentObject(self))
-                     // Assign the SwiftUI ContentView to imageWindow
-            //window.contentView = NSHostingView(rootView: BinaryClockView(ayahString: Ayah)
-               // .environmentObject(self))
-            
-            // Assign imageWindow to imageWindowController (NSWindowController)
             windowController = .init(window: window)
             // Show window
-
-            window.orderFrontRegardless()
+            window.orderFront(nil)
+            //window.orderFrontRegardless()
             
         }
     }
