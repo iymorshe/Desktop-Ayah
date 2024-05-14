@@ -49,6 +49,11 @@ func randomVerse() async throws -> Ayah {
      
     return try await fetchVerse(number:number)
 }
+func randomVerses() async throws -> [Ayah] {
+    let number = Int.random(in: 1...6236)
+     
+    return try await fetchVerses(number:number)
+}
 func fetchVerse(number: Int) async throws -> Ayah {
     let urlString = "https://api.alquran.cloud/v1/ayah/\(number)/quran-uthmani"
     guard let url = URL(string: urlString) else {
@@ -58,8 +63,8 @@ func fetchVerse(number: Int) async throws -> Ayah {
     do {
         let (data, _) = try await URLSession.shared.data(from: url)
         // Decode directly into Ayah struct
-        if let json = String(data: data, encoding: .utf8) {
-                }
+            //if let json = String(data: data, encoding: .utf8) {
+              //  }
         let decoder = JSONDecoder()
         let decodedData = try decoder.decode(AyahDataWrapper.self, from: data)
         return decodedData.data
@@ -106,7 +111,7 @@ func fetchVerses(number: Int) async throws -> [Ayah] {
                 }
         let decoder = JSONDecoder()
         let decodedData = try decoder.decode(AyahsDataWrapper.self, from: data)
-        print(decodedData.data[1].englishTranslation)
+        //print(decodedData.data[1].englishTranslation)
         return decodedData.data
     } catch {
         throw QuranError.networkError(error)

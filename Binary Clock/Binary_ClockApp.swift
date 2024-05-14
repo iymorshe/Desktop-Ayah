@@ -18,9 +18,9 @@ struct DesktopQuran: App {
                     appDelegate.newVerse()
             }
             Button("Copy Verse") {
-                let copiedText = "\(appDelegate.ayah?.englishTranslation ?? "") ( \(appDelegate.ayah?.surahNumber ?? 0):\(appDelegate.ayah?.ayahNumber ?? 0) )"
-                NSPasteboard.general.clearContents() // Clear the clipboard
-                NSPasteboard.general.setString(copiedText, forType: .string) // Set the copied text to the clipboard
+                //let copiedText = "\(appDelegate.ayah?.englishTranslation ?? "") ( \(appDelegate.ayah?.surahNumber ?? 0):\(appDelegate.ayah?.ayahNumber ?? 0) )"
+                //NSPasteboard.general.clearContents() // Clear the clipboard
+                //NSPasteboard.general.setString(copiedText, forType: .string) // Set the copied text to the clipboard
             }
             Divider()
             Button("Preferences") {
@@ -56,18 +56,18 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
     var isShown = true
     var window: NSWindow!
     var preferencesWindow: NSWindow!
-    @Published var ayah: Ayah?
+    @Published var ayah: [Ayah]?
     @Published var string: String = "habibti"
     @Published var color: Bool = false
     @Published var fontSize: Int = 36
-    @Published var sliderValue: Double = 1.0
+    @Published var sliderValue: Double = 0.5
     @Published var timerUpdate: Int = 24
     @MainActor func newVerse() {
         Task {
             do {
-                ayah = try await randomVerse()
-                let a = try await fetchVerses(number: 7)
-                string = ayah?.englishTranslation ?? ""
+                ayah = try await randomVerses()
+                //ayah = try await fetchVerses(number: 7)
+                //string = ayah?.englishTranslation ?? ""
             } catch {
                 print("Failed to fetch random verse: \(error)")
             }

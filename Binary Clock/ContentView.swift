@@ -14,19 +14,29 @@ struct BinaryClockView: View {
         GeometryReader { geometry in
             VStack {
                 Spacer()
-                Text("( \(appDelegate.ayah?.surahNumber ?? 0):\(appDelegate.ayah?.ayahNumber ?? 0) ) \(appDelegate.ayah?.englishTranslation ?? "")")
-                    .font(Font.custom("uthmani", size: CGFloat(appDelegate.fontSize)))
-                    .multilineTextAlignment(.center)
-                    .padding()
-                    .background(appDelegate.color ?
-                                (colorScheme == .dark) ? .black : .white : .clear)
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    .position(x: geometry.size.width / 2, y: geometry.size.height * (-appDelegate.sliderValue + 1.05)) // Position the Text based on appDelegate.sliderValue
-                    .lineSpacing(10) // Add line spacing to make the text double spaced
-                    .onReceive(Timer.publish(every: TimeInterval(appDelegate.timerUpdate * 60 * 60), on: .main, in: .common).autoconnect()) { _ in
-                        appDelegate.newVerse()
+                if let firstAyah = appDelegate.ayah?.first {
+                    Text("\(firstAyah.englishTranslation)")
+                        .font(Font.custom("uthmani", size: CGFloat(appDelegate.fontSize)))
+                    if let secondAyah = appDelegate.ayah?[1] {
+                        Text("\(secondAyah.englishTranslation) (\(firstAyah.surahNumber):\(firstAyah.ayahNumber))")
+                            .font(Font.custom("ComicSansMS", size: CGFloat(appDelegate.fontSize-20)))
                     }
+                } else {
+                    Text("")
+                }
+
                 Spacer()
+            }
+            
+            .multilineTextAlignment(.center)
+            .padding()
+            .background(appDelegate.color ?
+                        (colorScheme == .dark) ? .black : .white : .clear)
+            .frame(maxWidth: .infinity, alignment: .center)
+            .position(x: geometry.size.width / 2, y: geometry.size.height * (-appDelegate.sliderValue + 1.05)) // Position the Text based on appDelegate.sliderValue
+            .lineSpacing(10) // Add line spacing to make the text double spaced
+            .onReceive(Timer.publish(every: TimeInterval(appDelegate.timerUpdate * 60 * 60), on: .main, in: .common).autoconnect()) { _ in
+                appDelegate.newVerse()
             }
         }
     }
