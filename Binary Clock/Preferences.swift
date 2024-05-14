@@ -65,11 +65,6 @@ struct GeneralView: View {
             }
             .pickerStyle(MenuPickerStyle())
             .padding()
-            Button(action: {
-                appDelegate.color.toggle()
-            }, label: {
-                Text("Toggle Background")
-            })
         }
     }
 }

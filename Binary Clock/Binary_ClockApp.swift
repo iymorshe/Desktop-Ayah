@@ -27,6 +27,11 @@ struct DesktopQuran: App {
                 appDelegate.showPreferences()
             }
             Divider()
+            Button(action: {
+                appDelegate.color.toggle()
+            }, label: {
+                Text("Toggle Background")
+            })
             Button("Toggle Visibility") { //doesnt work
                 if shown { //hide the window
                     appDelegate.hideWindow()
@@ -61,6 +66,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
         Task {
             do {
                 ayah = try await randomVerse()
+                let a = try await fetchVerses(number: 7)
                 string = ayah?.englishTranslation ?? ""
             } catch {
                 print("Failed to fetch random verse: \(error)")
@@ -95,8 +101,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
                                    height: screenHeight),
                             display: false)  // Move the window to the top of the screen
             window.backgroundColor = .clear
-            NSApp.setActivationPolicy(.regular)
-
+            NSApp.setActivationPolicy(.accessory) //have an option to toggle the desktop icon
                 // Use the Ayah object to initialize BinaryClockView
                 window.contentView = NSHostingView(rootView: BinaryClockView().environmentObject(self))
             windowController = .init(window: window)

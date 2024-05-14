@@ -50,7 +50,7 @@ func randomVerse() async throws -> Ayah {
     return try await fetchVerse(number:number)
 }
 func fetchVerse(number: Int) async throws -> Ayah {
-    let urlString = "https://api.alquran.cloud/v1/ayah/\(number)/arabic.asad"
+    let urlString = "https://api.alquran.cloud/v1/ayah/\(number)/quran-uthmani"
     guard let url = URL(string: urlString) else {
         throw QuranError.invalidRange
     }
@@ -59,7 +59,6 @@ func fetchVerse(number: Int) async throws -> Ayah {
         let (data, _) = try await URLSession.shared.data(from: url)
         // Decode directly into Ayah struct
         if let json = String(data: data, encoding: .utf8) {
-                    print("Received JSON: \(json)")
                 }
         let decoder = JSONDecoder()
         let decodedData = try decoder.decode(AyahDataWrapper.self, from: data)
@@ -77,6 +76,14 @@ struct AyahDataWrapper: Decodable {
     }
 }
 
+struct AyahsDataWrapper: Decodable {
+    let data: [Ayah]
+
+    enum CodingKeys: String, CodingKey {
+        case data
+    }
+}
+
 
 enum QuranError: Error {
     case invalidRange
@@ -85,3 +92,23 @@ enum QuranError: Error {
     case parsingError(Error)
 }
 
+func fetchVerses(number: Int) async throws -> [Ayah] {
+    let urlString = "https://api.alquran.cloud/v1/ayah/\(number)/editions/quran-uthmani,en.asad"
+    guard let url = URL(string: urlString) else {
+        throw QuranError.invalidRange
+    }
+
+    do {
+        let (data, _) = try await URLSession.shared.data(from: url)
+        // Decode directly into Ayah struct
+        if let json = String(data: data, encoding: .utf8) {
+                    //print("Received JSON: \(json)")
+                }
+        let decoder = JSONDecoder()
+        let decodedData = try decoder.decode(AyahsDataWrapper.self, from: data)
+        print(decodedData.data[1].englishTranslation)
+        return decodedData.data
+    } catch {
+        throw QuranError.networkError(error)
+    }
+}
