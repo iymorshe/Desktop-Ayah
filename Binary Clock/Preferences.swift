@@ -37,6 +37,13 @@ struct Preferences: View {
                     .tabItem {
                     Label("Position", systemImage: "arrow.up.arrow.down")
                 }.tag("Position")
+                
+                TextView()
+                    .environmentObject(appDelegate)
+                    .tabItem {
+                    Label("Text", systemImage: "arrow.up.arrow.down")
+                }.tag("Text")
+                
                 /*
                 Text("Text Options").tabItem {
                     Label("Text", systemImage: "textformat")
@@ -90,3 +97,80 @@ struct PositionView: View {
     }
 }
 
+struct TextView: View {
+    @EnvironmentObject var appDelegate: AppDelegate
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text("Text Alignment")
+                .font(.headline)
+            HStack {
+                Spacer()
+                Button("Left") {
+                    appDelegate.textAlignment = .leading
+                }
+                Spacer()
+                Button("Center") {
+                    // Action for Center
+                    appDelegate.textAlignment = .center
+                }
+                Spacer()
+                Button("Right") {
+                    // Action for Right
+                    appDelegate.textAlignment = .trailing
+                }
+                Spacer()
+            }
+            .padding()
+            .padding(.vertical)
+            
+            // Text Font/Size
+            VStack(alignment: .leading) {
+                Text("Text Font/Size")
+                    .font(.headline)
+                HStack {
+                    Spacer()
+                    Button("Fonts") {
+                        FontManager.shared.setAppDelegate(appDelegate)
+                        FontManager.shared.showFontPanel()
+                        //update appDelegate.font
+                    }
+                    Spacer()
+                }
+                .padding()
+            }
+        }
+    }
+}
+
+
+class FontManager: NSObject, NSFontChanging {
+    static let shared = FontManager()
+    private var appDelegate: AppDelegate?
+
+    func setAppDelegate(_ appDelegate: AppDelegate) {
+        self.appDelegate = appDelegate
+    }
+
+    func changeFont(_ sender: NSFontManager?) {
+        guard let sender = sender, let appDelegate = appDelegate else { return }
+        let font = sender.convert(.systemFont(ofSize: NSFont.systemFontSize))
+        appDelegate.font = font
+    }
+
+    private func validModes(forFontPanel fontPanel: NSFontPanel) -> NSFontPanel.ModeMask {
+        return [.collection, .face, .size]
+    }
+    
+    func showFontPanel() {
+        let fontManager = NSFontManager.shared
+        fontManager.target = self
+        fontManager.action = #selector(changeFont(_:))
+        fontManager.orderFrontFontPanel(nil)
+    }
+}
+
+extension Font {
+    init(nsFont: NSFont) {
+        self = Font.custom(nsFont.fontName, size: nsFont.pointSize)
+    }
+}

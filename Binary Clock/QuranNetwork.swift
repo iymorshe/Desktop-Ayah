@@ -98,7 +98,7 @@ enum QuranError: Error {
 }
 
 func fetchVerses(number: Int) async throws -> [Ayah] {
-    let urlString = "https://api.alquran.cloud/v1/ayah/\(number)/editions/quran-uthmani,en.asad"
+    let urlString = "https://api.alquran.cloud/v1/ayah/\(number)/editions/quran-uthmani,en.hilali"
     guard let url = URL(string: urlString) else {
         throw QuranError.invalidRange
     }
@@ -106,9 +106,9 @@ func fetchVerses(number: Int) async throws -> [Ayah] {
     do {
         let (data, _) = try await URLSession.shared.data(from: url)
         // Decode directly into Ayah struct
-        if let json = String(data: data, encoding: .utf8) {
+        //if let json = String(data: data, encoding: .utf8) {
                     //print("Received JSON: \(json)")
-                }
+          //      }
         let decoder = JSONDecoder()
         let decodedData = try decoder.decode(AyahsDataWrapper.self, from: data)
         //print(decodedData.data[1].englishTranslation)

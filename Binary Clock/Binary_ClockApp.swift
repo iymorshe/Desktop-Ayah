@@ -19,8 +19,12 @@ struct DesktopQuran: App {
             }
             Button("Copy Verse") {
                 //let copiedText = "\(appDelegate.ayah?.englishTranslation ?? "") ( \(appDelegate.ayah?.surahNumber ?? 0):\(appDelegate.ayah?.ayahNumber ?? 0) )"
-                //NSPasteboard.general.clearContents() // Clear the clipboard
-                //NSPasteboard.general.setString(copiedText, forType: .string) // Set the copied text to the clipboard
+                if let firstAyah = appDelegate.ayah?.first {
+                    let copiedText = "\(firstAyah.englishTranslation)"
+                    NSPasteboard.general.clearContents() // Clear the clipboard
+                    NSPasteboard.general.setString(copiedText, forType: .string) // Set the copied text to the clipboard
+                }
+                
             }
             Divider()
             Button("Preferences") {
@@ -62,6 +66,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
     @Published var fontSize: Int = 36
     @Published var sliderValue: Double = 0.5
     @Published var timerUpdate: Int = 24
+    @Published var font: NSFont = .systemFont(ofSize: 12)
+    @Published var textAlignment: HorizontalAlignment = .center
     @MainActor func newVerse() {
         Task {
             do {
