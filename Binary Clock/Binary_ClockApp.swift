@@ -13,7 +13,7 @@ struct DesktopQuran: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @State var shown: Bool = true
     var body: some Scene {
-        MenuBarExtra("Binary Clock", systemImage: "moon.stars.circle.fill") {
+        MenuBarExtra("Binary Clock", systemImage: "moon.stars.circle") {
             Button("Refresh Verse") {
                     appDelegate.newVerse()
             }
@@ -65,7 +65,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
     @Published var color: Bool = false
     @Published var fontSize: Int = 36
     @Published var sliderValue: Double = 0.5
-    @Published var timerUpdate: Int = 24
+    @Published var timerUpdate: Double = 24
     @Published var font: NSFont = .systemFont(ofSize: 12)
     @Published var textAlignment: HorizontalAlignment = .center
     @MainActor func newVerse() {

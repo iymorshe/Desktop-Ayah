@@ -66,8 +66,15 @@ struct GeneralView: View {
         VStack {
 
             Picker("Refresh Interval", selection: $appDelegate.timerUpdate) {
-                Text("Every 12 hours").tag(12)
-                Text("Every 24 hours").tag(24)
+                Text("Every 1 second").tag(1.0/960/2)
+                Text("Every 3 seconds").tag(1.0/960)
+                Text("Every 7 seconds").tag(1.0/480)
+                Text("Every 15 seconds").tag(1.0/240)
+                Text("Every 30 seconds").tag(1.0/120)
+                Text("Every 1 minute").tag(1.0/60)
+                Text("Every 1 hour").tag(1.0)
+                Text("Every 12 hours").tag(12.0)
+                Text("Every 24 hours").tag(24.0)
                 Text("Don't refresh automatically").tag(999)
             }
             .pickerStyle(MenuPickerStyle())
