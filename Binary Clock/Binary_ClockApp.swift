@@ -107,7 +107,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
                                    height: screenHeight),
                             display: false)  // Move the window to the top of the screen
             window.backgroundColor = .clear
-            NSApp.setActivationPolicy(.accessory) //have an option to toggle the desktop icon
+            NSApp.setActivationPolicy(.regular) //have an option to toggle the desktop icon
                 // Use the Ayah object to initialize BinaryClockView
                 window.contentView = NSHostingView(rootView: BinaryClockView().environmentObject(self))
             windowController = .init(window: window)
