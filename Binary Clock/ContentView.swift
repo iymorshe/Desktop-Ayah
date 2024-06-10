@@ -17,7 +17,8 @@ struct BinaryClockView: View {
                 VStack(alignment: appDelegate.textAlignment) {
                     if let firstAyah = appDelegate.ayah?.first {
                         Text("\(firstAyah.englishTranslation)")
-                            .font(Font.custom("uthmani", size: CGFloat(appDelegate.fontSize)))
+                            .font(Font(nsFont: appDelegate.font))
+
                         if let secondAyah = appDelegate.ayah?[1] {
                             Text("\(secondAyah.englishTranslation) (\(firstAyah.surahNumber):\(firstAyah.ayahNumber))")
                                 .font(Font(nsFont: appDelegate.font))
@@ -34,7 +35,7 @@ struct BinaryClockView: View {
                 Spacer()
             }
             
-            .multilineTextAlignment(.center)
+            .multilineTextAlignment(appDelegate.textAlignment == .center ? .center : (appDelegate.textAlignment == .leading ? .leading : .trailing))
             .padding()
             
             .frame(maxWidth: .infinity, alignment: .center)

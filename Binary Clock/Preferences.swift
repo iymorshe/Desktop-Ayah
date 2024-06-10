@@ -150,11 +150,18 @@ struct TextView: View {
 }
 
 
-class FontManager: NSObject, NSFontChanging {
+class FontManager: NSObject, NSFontChanging, NSColorChanging{
+    func changeColor(_ sender: NSColorPanel?) {
+       guard let sender = sender, let appDelegate = appDelegate else { return }
+       let color = sender.color
+       appDelegate.textColor = color
+    }
+    
     static let shared = FontManager()
     private var appDelegate: AppDelegate?
 
     func setAppDelegate(_ appDelegate: AppDelegate) {
+        //print("salam")
         self.appDelegate = appDelegate
     }
 
@@ -175,6 +182,29 @@ class FontManager: NSObject, NSFontChanging {
         fontManager.orderFrontFontPanel(nil)
     }
 }
+
+class ColorManager: NSObject, NSColorChanging {
+    func changeColor(_ sender: NSColorPanel?) {
+        guard let sender = sender, let appDelegate = appDelegate else { return }
+            //let c = sender.convert(
+        //appDelegate.font = font
+    }
+    
+    static let shared = ColorManager()
+    private var appDelegate: AppDelegate?
+
+    func setAppDelegate(_ appDelegate: AppDelegate) {
+        print("salamaaa")
+        self.appDelegate = appDelegate
+    }
+    func showFontPanel() {
+        let fontManager = NSFontManager.shared
+        fontManager.target = self
+        fontManager.action = #selector(changeColor(_:))
+        fontManager.orderFrontFontPanel(nil)
+    }
+}
+
 
 extension Font {
     init(nsFont: NSFont) {

@@ -8,6 +8,7 @@
 import SwiftUI
 import Combine
 import SwiftData
+import StoreKit
 @main
 struct DesktopQuran: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
@@ -36,6 +37,10 @@ struct DesktopQuran: App {
             }, label: {
                 Text("Toggle Background")
             })
+            /*Button("Donate") {
+                appDelegate.showDonation()
+
+            }*/
             Button("Toggle Visibility") { //doesnt work
                 if shown { //hide the window
                     appDelegate.hideWindow()
@@ -66,7 +71,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
     @Published var fontSize: Int = 36
     @Published var sliderValue: Double = 0.5
     @Published var timerUpdate: Double = 24
-    @Published var font: NSFont = .systemFont(ofSize: 12)
+    @Published var font: NSFont = .systemFont(ofSize: 20)
+    @Published var textColor: NSColor = .white
     @Published var textAlignment: HorizontalAlignment = .center
     @MainActor func newVerse() {
         Task {
@@ -117,7 +123,34 @@ class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
             
         }
     }
-    
+    func showDonation() {
+            if preferencesController != nil { return } else {
+                // Define the window
+                preferencesWindow = NSWindow(contentRect: NSRect(x: Int(NSScreen.main?.visibleFrame.midX ?? 0) - 100,
+                                                                 y: Int(NSScreen.main?.visibleFrame.midY ?? 0) - 100,
+                                                                 width: 200,
+                                                                 height: 200),
+                                             styleMask: .closable,
+                                             backing: .buffered,
+                                             defer: true
+                )
+                //preferencesWindow.collectionBehavior = [.transient]
+                preferencesWindow.isMovableByWindowBackground = true
+                
+                preferencesWindow.isOpaque = false
+                preferencesWindow.setFrame(NSRect(x: Int(NSScreen.main?.visibleFrame.midX ?? 0) - 100,
+                                                  y: Int(NSScreen.main?.visibleFrame.midY ?? 0) - 100,
+                                                  width: 200,
+                                                  height: 200),
+                                display: true)
+                preferencesWindow.contentView = NSHostingView(rootView: DonationsWindow().environmentObject(self))
+                
+                preferencesController = .init(window: preferencesWindow )
+                // Show window
+                preferencesWindow.orderFrontRegardless()
+               
+            }
+    }
     
     func hideWindow() {
         guard let windowController = windowController else { return } // If there's no open window, return
@@ -169,4 +202,70 @@ extension NSPanel {
 
 extension Notification.Name {
     static let preferencesChanged = Notification.Name("preferencesChanged")
+}
+
+
+
+struct DonationsWindow: View {
+    @StateObject private var storeManager = StoreManager()
+    
+    var body: some View {
+        HStack {
+            ForEach(storeManager.products, id: \.self) { product in
+                Button(action: {
+                    storeManager.purchaseProduct(product: product)
+                }) {
+                    Text(product.localizedTitle)
+                }
+            }
+        }
+        .onAppear {
+            storeManager.getProducts()
+        }
+    }
+}
+
+class StoreManager: NSObject, ObservableObject, SKProductsRequestDelegate, SKPaymentTransactionObserver {
+    @Published var products: [SKProduct] = []
+    
+    override init() {
+        super.init()
+        SKPaymentQueue.default().add(self)
+    }
+    
+    func getProducts() {
+        let request = SKProductsRequest(productIdentifiers: ["com.yourapp.donation1", "com.yourapp.donation5", "com.yourapp.donation10", "com.yourapp.donation25", "com.yourapp.donation50"])
+        request.delegate = self
+        request.start()
+    }
+    
+    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
+        DispatchQueue.main.async {
+            self.products = response.products
+        }
+    }
+    
+    func purchaseProduct(product: SKProduct) {
+        let payment = SKPayment(product: product)
+        SKPaymentQueue.default().add(payment)
+    }
+    
+    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+        for transaction in transactions {
+            switch transaction.transactionState {
+            case .purchased:
+                // Handle successful purchase
+                SKPaymentQueue.default().finishTransaction(transaction)
+            case .failed:
+                // Handle failed purchase
+                SKPaymentQueue.default().finishTransaction(transaction)
+            default:
+                break
+            }
+        }
+    }
+    
+    deinit {
+        SKPaymentQueue.default().remove(self)
+    }
 }
