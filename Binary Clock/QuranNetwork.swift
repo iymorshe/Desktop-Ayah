@@ -117,3 +117,52 @@ func fetchVerses(number: Int) async throws -> [Ayah] {
         throw QuranError.networkError(error)
     }
 }
+
+let availableEditions = [
+    "quran-uthmani", "en.hilali", "ar.muyassar", "az.mammadaliyev", "az.musayev", "bn.bengali",
+    "cs.hrbek", "cs.nykl", "de.aburida", "de.bubenheim", "de.khoury", "de.zaidan", "dv.divehi",
+    "en.ahmedali", "en.ahmedraza", "en.arberry", "en.asad", "en.daryabadi", "en.pickthall",
+    "en.qaribullah", "en.sahih", "en.sarwar", "en.yusufali", "es.cortes", "fa.ansarian",
+    "fa.ayati", "fa.fooladvand", "fa.ghomshei", "fa.makarem", "fr.hamidullah", "ha.gumi",
+    "hi.hindi", "id.indonesian", "it.piccardo", "ja.japanese", "ko.korean", "ku.asan",
+    "ml.abdulhameed", "nl.keyzer", "no.berg", "pl.bielawskiego", "pt.elhayek", "ro.grigore",
+    "ru.kuliev", "ru.osmanov", "ru.porokhova", "sd.amroti", "so.abduh", "sq.ahmeti", "sq.mehdiu",
+    "sq.nahi", "sv.bernstrom", "sw.barwani", "ta.tamil", "tg.ayati", "th.thai", "tr.ates",
+    "tr.bulac", "tr.diyanet", "tr.golpinarli", "tr.ozturk", "tr.vakfi", "tr.yazir", "tr.yildirim",
+    "tr.yuksel", "tt.nugman", "ug.saleh", "ur.ahmedali", "ur.jalandhry", "ur.jawadi",
+    "ur.kanzuliman", "ur.qadri", "uz.sodik", "en.maududi", "en.shakir", "en.transliteration",
+    "es.asad", "fa.bahrampour", "fa.khorramshahi", "fa.mojtabavi", "hi.farooq", "id.muntakhab",
+    "ms.basmeih", "ru.abuadel", "ru.krachkovsky", "ru.muntahab", "ru.sablukov", "ur.junagarhi",
+    "ur.maududi", "zh.jian", "zh.majian", "fa.khorramdel", "fa.moezzi", "bs.korkut", "ar.jalalayn",
+    "quran-tajweed", "quran-wordbyword", "si.naseemismail", "quran-buck", "zh.mazhonggang",
+    "quran-wordbyword-2", "quran-unicode", "quran-uthmani-quran-academy", "ba.mehanovic",
+    "en.itani", "ar.qurtubi", "ar.miqbas", "ar.waseet", "ar.baghawi", "my.ghazi", "en.mubarakpuri",
+    "am.sadiq", "ber.mensur", "bn.hoque", "en.qarai", "en.wahiduddin", "es.bornez", "es.garcia",
+    "ur.najafi", "fa.gharaati", "fa.sadeqi", "fa.safavi", "id.jalalayn", "ml.karakunnu",
+    "nl.leemhuis", "nl.siregar", "ps.abdulwali", "ru.kuliev-alsaadi"
+]
+
+// New function to fetch verses for multiple editions
+func fetchVersesForEditions(number: Int, editions: [String]) async throws -> [String: Ayah] {
+    let editionsString = editions.joined(separator: ",")
+    let urlString = "https://api.alquran.cloud/v1/ayah/\(number)/editions/\(editionsString)"
+    guard let url = URL(string: urlString) else {
+        throw QuranError.invalidRange
+    }
+
+    do {
+        let (data, _) = try await URLSession.shared.data(from: url)
+        let decoder = JSONDecoder()
+        let decodedData = try decoder.decode(AyahsDataWrapper.self, from: data)
+        
+        var result: [String: Ayah] = [:]
+        for ayah in decodedData.data {
+            if let edition = editions.first(where: { $0.contains(ayah.englishTranslation) }) {
+                result[edition] = ayah
+            }
+        }
+        return result
+    } catch {
+        throw QuranError.networkError(error)
+    }
+}
